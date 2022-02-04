@@ -26,3 +26,7 @@ const userSchema = new mongoose.Schema({
 userSchema.virtual('friendCount').get(() => {
     return friends.length;
 });
+
+const User = mongoose.model("User", userSchema);
+
+module.exports = User;
