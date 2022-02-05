@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const mongoose = require("mongoose");
 
 module.exports = {
     getUsers(req, res) {
@@ -6,7 +7,7 @@ module.exports = {
     },
     getSingleUser(req, res) {
         User.findOne({
-            _id: req.params.userId
+            _id: new mongoose.Types.ObjectId(req.params.id)
         }).then((user) => !user ? res.status(404).json({ message: 'Unable to find a user with that id' }) : res.json(user)
         )
     },
@@ -15,18 +16,25 @@ module.exports = {
     },
     updateUser(req, res) {
         User.findOneAndUpdate(
-            { _id: req.params.id },
-            { $set: req.body },
+            { _id: new mongoose.Types.ObjectId(req.body.id) },
+            {
+                $set: {
+                    username: req.body.username,
+                    email: req.body.email,
+                    thoughts: req.body.thoughts,
+                    friends: req.body.friends
+                }
+            },
             { runValidators: true, new: true }
         ).then((user) => {
-            !user ? res.status(404).json({ message: 'Unable to find a user with that id' }) : res.json(user)
+            !user ? res.status(404).json({ message: 'Unable to update a user with that id' }) : res.json(user)
         }).catch((err) => { console.log(err); res.status(500).json(err) })
     },
     deleteUser(req, res) {
         User.findOneAndRemove(
-            { _id: req.params.id }
+            { _id: new mongoose.Types.ObjectId(req.body.id) }
         ).then((data) => {
-            console.log(data);
-        })
+            !data ? res.status(404).json({ message: 'Unable to delete a user with that id' }) : res.json(data)
+        }).catch((err) => { console.log(err); res.status(500).json(err) })
     }
 };
