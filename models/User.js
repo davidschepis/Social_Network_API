@@ -29,11 +29,4 @@ userSchema.virtual('friendCount').get(() => {
 
 const User = mongoose.model("User", userSchema);
 
-User.create({
-    username: "Morty",
-    email: "Morty@me.com",
-    thoughts: ["I am weasel", "I am I am"],
-    friends: []
-});
-
 module.exports = User;
