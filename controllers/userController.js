@@ -36,5 +36,29 @@ module.exports = {
         ).then((data) => {
             !data ? res.status(404).json({ message: 'Unable to delete a user with that id' }) : res.json(data)
         }).catch((err) => { console.log(err); res.status(500).json(err) })
+    },
+    addFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: new mongoose.Types.ObjectId(req.params.id) },
+            { $push: { friends: new mongoose.Types.ObjectId(req.params.fid) } }
+        ).then((data) => {
+            !data ? res.status(404).json({ message: 'Unable to add a friend with the given ids' }) : res.json(data)
+        }).catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+
+        });
+    },
+    deleteFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: new mongoose.Types.ObjectId(req.params.id) },
+            { $pull: { friends: new mongoose.Types.ObjectId(req.params.fid) } }
+        ).then((data) => {
+            !data ? res.status(404).json({ message: 'Unable to add a friend with the given ids' }) : res.json(data)
+        }).catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+
+        });
     }
 };
