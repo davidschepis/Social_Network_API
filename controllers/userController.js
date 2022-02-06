@@ -16,7 +16,7 @@ module.exports = {
     },
     updateUser(req, res) {
         User.findOneAndUpdate(
-            { _id: new mongoose.Types.ObjectId(req.body.id) },
+            { _id: new mongoose.Types.ObjectId(req.params.id) },
             {
                 $set: {
                     username: req.body.username,

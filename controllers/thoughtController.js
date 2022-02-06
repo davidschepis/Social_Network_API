@@ -29,7 +29,7 @@ module.exports = {
     },
     updateThought(req, res) {
         Thought.findOneAndUpdate(
-            { _id: new mongoose.Types.ObjectId(req.body.id) },
+            { _id: new mongoose.Types.ObjectId(req.params.id) },
             {
                 $set: {
                     thoughtText: req.body.thoughtText,

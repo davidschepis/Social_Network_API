@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 const reactionSchema = new mongoose.Schema({
     reactionID: {
@@ -16,13 +17,16 @@ const reactionSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        get: formatDate
     }
-});
-
-reactionSchema.methods.getDate = () => {
-    return "CHABS";
-}
+},
+    {
+        toJSON: {
+            getters: true
+        },
+        _id: false
+    });
 
 const thoughtSchema = new mongoose.Schema({
     thoughtText: {
@@ -33,21 +37,30 @@ const thoughtSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        get: formatDate
     },
     username: {
         type: String,
         required: true
     },
     reactions: [reactionSchema]
-});
+},
+    {
+        toJSON: {
+            virtuals: true,
+            getters: true
+        },
+        id: false
+    });
 
-thoughtSchema.methods.getDate = () => {
-    return "CHABS";
-};
+function formatDate(date) {
+    let formatted = moment(date);
+    return formatted.format("MMM do, YYYY [at] hh[:]ss a");
+}
 
-thoughtSchema.virtual('reactionCount').get(() => {
-    return reactions.length;
+thoughtSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;
 });
 
 const Thought = mongoose.model("Thought", thoughtSchema);
