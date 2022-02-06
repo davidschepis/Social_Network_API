@@ -67,7 +67,7 @@ module.exports = {
     deleteReaction(req, res) {
         Thought.findOneAndUpdate(
             { _id: new mongoose.Types.ObjectId(req.params.id) },
-            { $pull: { reactions: { reactionID: req.body.id } } }
+            { $pull: { reactions: { reactionID: req.body.reaction_id } } }
         ).then((data) => {
             !data ? res.status(404).json({ message: 'Unable to add a friend with the given ids' }) : res.json(data)
         }).catch((err) => {
