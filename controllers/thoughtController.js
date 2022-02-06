@@ -44,7 +44,7 @@ module.exports = {
     },
     deleteThought(req, res) {
         Thought.findOneAndRemove(
-            { _id: new mongoose.Types.ObjectId(req.body.id) }
+            { _id: new mongoose.Types.ObjectId(req.params.id) }
         ).then((data) => {
             !data ? res.status(404).json({ message: 'Unable to delete a thought with that id' }) : res.json(data)
         }).catch((err) => { console.log(err); res.status(500).json(err) })
@@ -62,7 +62,6 @@ module.exports = {
         }).catch((err) => {
             console.log(err);
             res.status(500).json(err);
-
         });
     },
     deleteReaction(req, res) {
@@ -74,7 +73,6 @@ module.exports = {
         }).catch((err) => {
             console.log(err);
             res.status(500).json(err);
-
         });
     }
 };
