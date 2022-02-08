@@ -14,14 +14,18 @@ const userSchema = new mongoose.Schema(
             unique: true,
             match: [/^([A-Za-z0-9_\.-]+)@([\dA-Za-z\.-]+)\.([A-Za-z\.]{2,6})$/, "Invalid Email"]
         },
-        thoughts: {
-            type: Array,
-            ref: "Thought"
-        },
-        friends: {
-            type: Array,
-            ref: "User"
-        }
+        thoughts: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Thought'
+            }
+        ],
+        friends: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
+            }
+        ]
     },
     {
         toJSON: {
