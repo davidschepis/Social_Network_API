@@ -17,7 +17,13 @@ Backend of a social networking application. Allows full CRUD operations on a soc
  ## Links
 https://github.com/davidschepis/Social_Network_API
 
-https://drive.google.com/file/d/1YTVjVb9WMwxt_nN4sj5nmMzdGTpoMuQv/view
+Part1:
+
+https://drive.google.com/file/d/1hREa4dhzQxDrNTNX3puc2RBcSJ4GzdSb/view
+
+Part2:
+
+https://drive.google.com/file/d/1DyvwcPIxS5kCNyzbtr3RlpU9kT9NsNgf/view
 
  ## Example
 ![Screenshot](images/screenshot.png)
